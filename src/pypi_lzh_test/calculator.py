@@ -11,3 +11,7 @@ def division(a: int, b: int) -> float:
     if b == 0:
         raise ValueError("Denominator cannot be zero")
     return a / b
+
+def subtract(a: int, b: int) -> int:
+    """Subtract two numbers"""
+    return a - b
