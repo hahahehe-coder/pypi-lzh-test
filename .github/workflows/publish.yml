@@ -20,7 +20,23 @@ jobs:
         pip install build
     - name: Build package
       run: python -m build
+    
+    # 检查构建了哪些文件
+    - name: List built files
+      run: |
+        echo "构建的文件:"
+        ls -la dist/
+    
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
+    
+    # 新增：上传构建产物到 GitHub Release
+    - name: Upload Release Assets
+      uses: softprops/action-gh-release@v1
+      if: github.event_name == 'release'
+      with:
+        files: |
+          dist/*.whl
+          dist/*.tar.gz
